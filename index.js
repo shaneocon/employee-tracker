@@ -70,10 +70,19 @@ function menu() {
         console.log(error);
     })
 }
+// JOIN employee, department, and role TABLES TOGETHER HERE 
 function viewEmployees() {
     console.log("\nViewing employees\n");
 
-    var query = "SELECT * FROM employee";
+    var query = 
+    `SELECT e.id, e.first_name, e.last_name, r.title, d.name AS department, r.salary, CONCAT(m.first_name, ' ', m.last_name) AS manager
+    FROM employee e
+    LEFT JOIN role r
+      ON e.role_id = r.id
+    LEFT JOIN department d
+    ON d.id = r.department_id
+    LEFT JOIN employee m
+      ON m.id = e.manager_id`;
 
     connection.query(query, function (err, data) {
         console.table(data);
@@ -146,7 +155,31 @@ function addDepartment() {
         })
     })
 }
-function addRole() {}
+function addRole() {
+    inquirer.prompt([
+    {
+        name: "title",
+        type: "input",
+        message: "Please enter title: "
+    },
+    {
+        name: "salary",
+        type: "input",
+        message: "Enter salary for position: "
+    },
+    {
+        name: "department_id",
+        type: "number",
+        message: "Please enter your unique ID."
+    },
+    ]).then(function(res) {
+            connection.query("INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)", [res.title, res.salary, res.department_id], function(err, data) {
+                if (err) console.log(err);
+                console.table("Successfully Inserted");
+                menu();
+            })
+        })
+}
 function updateRole() {}
 
 // menu() could be used as exit
