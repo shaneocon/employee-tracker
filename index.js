@@ -36,6 +36,35 @@ function menu() {
             case "View Employees":
                 viewEmployees()
                 break;
+
+            case "View Departments":
+                viewDepartments()
+                break;
+
+            case "View Roles":
+                viewRoles()
+                break;
+
+            case "Add Employee":
+                addEmployee()
+                break;
+
+            case "Add Department":
+                addDepartment()
+                break;
+
+            case "Add Role":
+                addRole()
+                break;
+
+            case "Update Role":
+                updateRole()
+                break;
+
+            case "Exit":
+                exit()
+                break;
+            
         }
     })
 }
