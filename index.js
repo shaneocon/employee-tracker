@@ -12,10 +12,33 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err) {
     if (err) throw err;
-    firstPrompt();
+    menu();
 });
 
-function firstQuestion() {}
+function menu() {
+    inquirer.prompt({
+        name: "choice",
+        type: "list",
+        message: "What would you like to do?",
+        choices: [
+            "View Employees",
+            "View Departments",
+            "View Roles",
+            "Add Employee",
+            "Add Department",
+            "Add Role",
+            "Update Role",
+            "Exit"
+        ],
+    }).then(answers => {
+        console.log(answers.choice);
+        switch(answers.choice) {
+            case "View Employees":
+                viewEmployees()
+                break;
+        }
+    })
+}
 function viewEmployees() {}
 function viewDepartments() {}
 function viewRoles() {}
@@ -23,6 +46,8 @@ function addEmployee() {}
 function addDepartment() {}
 function addRole() {}
 function updateRole() {}
+function exit() {}
+// menu() could be used as exit
 
 
 
