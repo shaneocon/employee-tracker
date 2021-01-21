@@ -132,7 +132,20 @@ function addEmployee() {
         })
     })
 }
-function addDepartment() {}
+
+function addDepartment() {
+    inquirer.prompt({
+        name: "department",
+        type: "input",
+        message: "Please type name of department you'd like to add"
+    }).then(function(res) {
+        connection.query("INSERT INTO department (name) VALUES (?)", [res.department], function(err, data) {
+            if (err) console.log(err);
+            console.table("Successfully Inserted");
+            menu();
+        })
+    })
+}
 function addRole() {}
 function updateRole() {}
 
