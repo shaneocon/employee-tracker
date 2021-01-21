@@ -6,7 +6,8 @@ USE employeesDB;
 
 CREATE TABLE department (
   id INT NOT NULL AUTO_INCREMENT,
-  name VARCHAR(45) NULL,
+  name VARCHAR(45),
+  department_id INT(10),
   PRIMARY KEY (id)
 );
 

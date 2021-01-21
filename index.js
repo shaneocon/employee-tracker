@@ -7,7 +7,7 @@ var connection = mysql.createConnection({
     port: 3306,
     user: "root",
     password: "password",
-    database: employeesDB
+    database: "employeesDB"
 });
 
 connection.connect(function(err) {
@@ -31,7 +31,7 @@ function menu() {
             "Exit"
         ],
     }).then(answers => {
-        console.log(answers.choice);
+        console.table(answers.choice);
         switch(answers.choice) {
             case "View Employees":
                 viewEmployees()
@@ -60,22 +60,29 @@ function menu() {
             case "Update Role":
                 updateRole()
                 break;
-
-            case "Exit":
-                exit()
-                break;
             
         }
+    }).catch((error) => {
+        console.log(error);
     })
 }
-function viewEmployees() {}
+function viewEmployees() {
+    var query = "SELECT * FROM employee";
+    connection.query(query, function (err, data){
+        console.table(data);
+        menu();
+    })
+
+}
+    
+
 function viewDepartments() {}
 function viewRoles() {}
 function addEmployee() {}
 function addDepartment() {}
 function addRole() {}
 function updateRole() {}
-function exit() {}
+
 // menu() could be used as exit
 
 
