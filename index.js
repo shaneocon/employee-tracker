@@ -1,5 +1,6 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
+const figlet = require("figlet");
 require("console.table");
 
 var connection = mysql.createConnection({
@@ -9,6 +10,10 @@ var connection = mysql.createConnection({
     password: "password",
     database: "employeesDB"
 });
+
+figlet('HELLO YES PRODUCTIONS', (err, result) => {
+    console.log(err || result);
+  });
 
 connection.connect(function(err) {
     if (err) throw err;
@@ -188,18 +193,22 @@ function addRole() {
         })
 }
 function updateRole() {
-    inquirer.prompt({})
+    inquirer.prompt([
+    {
+        name: "name",
+        type: "input",
+        message: "Which employee would you like to update? (Please use first name only)"
+    },
+    {
+        name: "role_id",
+        type: "number",
+        message: "Enter new role ID (bewteen 1-4)"
+    }
+]).then((response) => {
+    connection.query("UPDATE employee SET role_id = ? WHERE first_name ?", [response.role_id, response.name], function (err, data) {
+        console.table(data)
+    })
+})
 }
 
-// menu() could be used as exit
 
-
-
-// Add departments, roles, employees
-// View departments, roles, employees
-// Update employee roles
-// Bonus points if you're able to:
-// Update employee managers
-// View employees by manager
-// Delete departments, roles, and employees
-// View the total utilized budget of a department -- ie the combined salaries of all employees in that department
