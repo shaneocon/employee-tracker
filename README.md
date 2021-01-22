@@ -4,8 +4,18 @@
 ### Unit 12 Homework 
 
 ## User Story
+As a business owner
+
+- I WANT to be able to view and manage the departments, roles,  and employees in my company
+- SO THAT I can organize and plan my business
 
 ## Acceptance Criteria
+
+- Add departments, roles, employees
+
+- View departments, roles, employees
+
+- Update employee roles
 
 ## App Demo Video
 
